@@ -7,7 +7,7 @@ export default defineConfig({
 	base: 'testlib',
 	integrations: [
 		starlight({
-			title: 'My Docs',
+			title: 'Testlib docs',
 			
 			social: {
 				github: 'https://github.com/withastro/starlight',
