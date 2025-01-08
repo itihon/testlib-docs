@@ -1,0 +1,29 @@
+name: Send submodule updates to parent repo
+
+on:
+  push:
+    branches: 
+      - main
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with: 
+          repository: itihon/testlib
+          # token: ${{ secrets.PRIVATE_TOKEN_GITHUB }}
+          ref: docs
+          submodules: true
+
+      - name: Pull & update submodules
+        run: git submodule update --remote
+
+      - name: Commit
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions - update docs"
+          git add --all
+          git commit -m "Update docs submodules" || echo "No changes to commit"
+          git push
